@@ -10,7 +10,11 @@ git clone https://github.com/Rakhid16/flask_pyrebase.git
 ```
 cd flask_pyrebase
 ```
-3. Masuk kedalam salah satu dari kedua <i>folder</i>
+3. Pasang depedensi
+```
+pip install -r requirements.txt
+```
+4. Masuk kedalam salah satu dari kedua <i>folder</i>
 ```
 cd database
 ```
