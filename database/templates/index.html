@@ -1,0 +1,20 @@
+<h1>Data Pendaftar</h1>
+
+<table style="width:45%;" border="1px">
+  <tr>
+    <th>NPM</th>
+    <th>Nama</th>
+    <th>Jurusan</th>
+    <th>Opsi</th>
+  </tr>
+  {%for i, j in data.items()%}
+  <tr>
+    <td>{{ i }}</td>
+    <td>{{ j['nama'] }}</td>
+    <td>{{ j['jurusan'] }}</td>
+    <td><a href="{{ url_for('edit', id = i) }}">Edit</a> | <a href="{{ url_for('hapus', id = i) }}">Hapus</a></td>
+  </tr>
+  {% endfor %}
+</table><br>
+
+<a href="{{ url_for('tambah') }}">Tambah Data Baru</a>

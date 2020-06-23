@@ -1,0 +1,15 @@
+<h1>Daftar Gambar Tersimpan</h1>
+{% for gambar in data %}
+
+  {{ gambar }}
+  <a href="{{ url_for('lihat', nama = gambar) }}">Lihat</a>
+  <a href="{{ url_for('unduh', nama = gambar) }}">Unduh</a>
+  <a href="{{ url_for('hapus', nama = gambar) }}">Hapus</a><br>
+
+{% endfor %}<br>
+
+<form method="POST" enctype="multipart/form-data">
+  Unggah gambar baru : 
+  <input type="file" name="gambar"><br><br>
+  <input type="submit" value="simpan">
+</form>
