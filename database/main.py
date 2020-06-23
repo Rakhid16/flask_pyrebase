@@ -15,33 +15,43 @@ db = initialize_app(config).database()
 
 @app.route('/')
 def index():
-  data = dict(db.child('').get().val())
-  return render_template("index.html", data = data)
+  try:
+    data = dict(db.child('').get().val())
+    return render_template("index.html", data = data)
+  except:
+    data = {'-' : {'nama' : '-', 'jurusan' : '-'}}
+    return render_template("index.html", data = data)
 
 @app.route('/tambah-data', methods=['GET', 'POST'])
 def tambah():
-  if request.method=="POST":
+  if request.method == 'POST':
     if db.child(request.form['id']).get().val() is not None:
-      return '''Data sudah ada. Silahkan masukan data yang lain.
-              <br><br><a href="/tambah-data">Kembali</a>'''
+      return '''NPM sudah ada, silahkan masukan data yang lain.
+             <br><br><a href="/tambah-data">kembali</a>'''
     else:
       db.child(request.form['id']).set({"nama" : request.form['nama'],
                                         "jurusan" : request.form['jurusan']})
-    return redirect(url_for('index'))
-  return render_template("tambah.html")
+      return redirect(url_for('index'))
+  return render_template('tambah.html')
 
 @app.route('/edit/<id>', methods=['GET', 'POST'])
 def edit(id):
-  if request.method=="POST":
-    db.child(id).update({"nama" : request.form['nama'],
-                         "jurusan" : request.form['jurusan']})
-
+  try:
+    if request.method == 'POST':
+      db.child(id).update({"nama" : request.form['nama'],
+                           "jurusan" : request.form['jurusan']})
+    
+      return redirect(url_for('index'))
+    return render_template('edit.html', id = id, data = dict(db.child(id).get().val()))
+  except:
     return redirect(url_for('index'))
-  return render_template("edit.html", id = id, data = dict(db.child(id).get().val()))
 
 @app.route('/hapus/<id>')
 def hapus(id):
-  db.child(id).remove()
-  return redirect(url_for('index'))
+  try:
+    db.child(id).remove()
+    return redirect(url_for('index'))
+  except:
+    return redirect(url_for('index'))
 
 app.run(debug=True)
