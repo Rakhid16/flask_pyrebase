@@ -1,4 +1,1 @@
-Pengantar untuk hal-hal yang sederhana :<br>
-Operasi pada auth firebase<br>
-CRUD realtime database<br>
-CRUD firebase cloud storage
+## Implementasi sederhana operasi <i>file</i> dengan Flask dan Firebase Cloud Storage
